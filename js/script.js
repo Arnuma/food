@@ -120,12 +120,13 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 	//tabs 
 	class MenuTabs {
-		constructor(menuImg, menuItemSubtitle, menuDescr, menuPrice, alt, parenElem) {
+		constructor(menuImg, menuItemSubtitle, menuDescr, menuPrice, alt, parenElem, ...classes) {
 			this.menuImg = menuImg; //src
 			this.menuItemSubtitle = menuItemSubtitle; //title
 			this.menuDescr = menuDescr; //descr
 			this.menuPrice = menuPrice; //price
 			this.alt = alt; //alt
+			this.classes = classes;
 			this.transfer = 88;
 			this.parenElem = document.querySelector(parenElem);
 			this.changeToUS();
@@ -138,8 +139,15 @@ window.addEventListener('DOMContentLoaded',()=>{
 		render() {
 			const elem = document.createElement('div');
 
+			if(this.classes.length === 0){
+				elem.classList.add('menu__item');
+			}else {
+				this.classes.forEach(className =>{
+					elem.classList.add(className);
+				});
+			}
+
 			elem.innerHTML = `
-		<div class="menu__item">
 					<img src=${this.menuImg} alt=${this.alt}>
 					<h3 class="menu__item-subtitle">Меню ${this.menuItemSubtitle}</h3>
 					<div class="menu__item-descr">Меню ${this.menuItemSubtitle} - ${this.menuDescr}</div>
@@ -147,8 +155,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 					<div class="menu__item-price">
 					<div class="menu__item-cost">Цена:</div>
 					<div class="menu__item-total"><span>${this.menuPrice}</span> руб/день</div>
-						</div>
-		</div>
+						</div
 		`;
 			this.parenElem.append(elem);
 		}
@@ -159,19 +166,19 @@ window.addEventListener('DOMContentLoaded',()=>{
 		'Фитнес', 'это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством',
 		'10',
 		'vegy',
-		'.menu .container').render();
+		'.menu .container','menu__item').render();
 
 	new MenuTabs('img/tabs/elite.jpg',
 		'Премиум', 'мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
 		'15',
 		'elite',
-		'.menu .container').render();
+		'.menu .container','menu__item').render();
 
 	new MenuTabs('img/tabs/post.jpg',
 		'Постное', 'это тщательный подбор ингредиентов: полное отсутствиепродуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
 		'20',
 		'post',
-		'.menu .container').render();
+		'.menu .container','menu__item').render();
 
 	
 
